@@ -58,18 +58,25 @@ public final class MyGameStateFactory implements Factory<GameState> {
 			}
 			@Override
 			public ImmutableSet<Piece> getPlayers(){
-				return remaining;
+				for(final var p : detectives){
+					if(p.piece() == detective) return ImmutableSet.of(p.piece());
+				}
+				return ImmutableSet.of();
 			}
 			@Override
 			public Optional<Integer> getDetectiveLocation(Piece.Detective detective){
 				for(final var p : detectives){
-					if(p.piece() == detective) return Optional.of(p.location());
+					if(p.piece()== detective) return Optional.of(p.location());
 				}
 				return Optional.empty();
 			}
 			@Override
 			public  Optional<TicketBoard> getPlayerTickets(Piece piece){
-				return null;
+				for(final var r : remaining){
+				if(r.isMrX() == true)
+					return Optional.of(r.)
+				};
+				return Optional.empty();
 
 			}
 			@Override
