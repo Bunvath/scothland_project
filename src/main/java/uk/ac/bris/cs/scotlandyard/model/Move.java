@@ -89,7 +89,7 @@ public interface Move extends Serializable {
 		 */
 		public final int destination;
 		public SingleMove(@Nonnull Piece piece, int source,
-		                  @Nonnull Ticket ticket, int destination) {
+						  @Nonnull Ticket ticket, int destination) {
 			this.piece = Objects.requireNonNull(piece);
 			this.source = source;
 			this.ticket = Objects.requireNonNull(ticket);
@@ -136,8 +136,8 @@ public interface Move extends Serializable {
 		 */
 		public final int destination2;
 		public DoubleMove(@Nonnull Piece piece, int source,
-		                  @Nonnull Ticket ticket1, int destination1,
-		                  @Nonnull Ticket ticket2, int destination2) {
+						  @Nonnull Ticket ticket1, int destination1,
+						  @Nonnull Ticket ticket2, int destination2) {
 			this.piece = Objects.requireNonNull(piece);
 			this.source = source;
 			this.ticket1 = Objects.requireNonNull(ticket1);

@@ -8,8 +8,6 @@ import com.google.common.collect.ImmutableSet;
 import uk.ac.bris.cs.scotlandyard.model.Board.GameState;
 import uk.ac.bris.cs.scotlandyard.model.ScotlandYard.Factory;
 
-import java.beans.PropertyEditorManager;
-import java.lang.instrument.UnmodifiableModuleException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,49 +17,54 @@ import java.util.Optional;
  */
 public final class MyGameStateFactory implements Factory<GameState> {
 
-	@Nonnull
-	@Override
-	public GameState build(
+	@Nonnull @Override public GameState build(
 			GameSetup setup,
 			Player mrX,
 			ImmutableList<Player> detectives) {
 		// TODO
-
 		final class MyGameState implements GameState{
-		  	private GameSetup setup;
-		  	private ImmutableSet<Piece> remaining;
-		  	private ImmutableSet<LogEntry> log;
-		  	private Player mrX;
-		  	private List<Player> detective;
-		  	private List<Player> everyone;
-		  	private ImmutableSet<Move> moves;
-		  	private ImmutableSet<Piece> winner;
-		  	private MyGameState(final GameSetup setup, final ImmutableSet<Piece> remaining,
+			private GameSetup setup;
+			private ImmutableSet<Piece> remaining;
+			private ImmutableSet<LogEntry> log;
+			private Player mrX;
+			private List<Player> detective;
+			private List<Player> everyone;
+			private ImmutableSet<Move> moves;
+			private ImmutableSet<Piece> winner;
+			private MyGameState(final GameSetup setup, final ImmutableSet<Piece> remaining,
 								final ImmutableSet<LogEntry> log,final Player mrX, final List<Player> detective){
-		  		if(setup.rounds.isEmpty()) throw new IllegalArgumentException();
+				if(setup.rounds.isEmpty()) throw new IllegalArgumentException();
 
-		  		for(final var p : detectives){
-		  			if(p.has(ScotlandYard.Ticket.DOUBLE) || p.has(ScotlandYard.Ticket.SECRET)){
-		  				throw new IllegalArgumentException();
+				for(final var p : detectives){
+					if(p.has(ScotlandYard.Ticket.DOUBLE) || p.has(ScotlandYard.Ticket.SECRET)){
+						throw new IllegalArgumentException();
 					}
 				}
-		  		this.setup = setup;
-		  		this.remaining = remaining;
-		  		this.log = log;
-		  		this.mrX = mrX;
-		  		this.detective = detective;
+				this.setup = setup;
+				this.remaining = remaining;
+				this.log = log;
+				this.mrX = mrX;
+				this.detective = detective;
 			}
 
 			@Override
 			public GameSetup getSetup() {
-		  		return setup;
+				return setup;
 			}
+
+			@Override
+			public ImmutableList<LogEntry> getMrXTravelLog(){
+				return null;
+			}
+
 			@Override
 			public ImmutableSet<Piece> getPlayers(){
-				for(final var p : detectives){
-					if(p.piece() == detective) return ImmutableSet.of(p.piece());
+				for(final var v : everyone){
+					if (v.isDetective() == true ){
+						return remaining.of(v.piece());
+					}
 				}
-				return ImmutableSet.of();
+				return remaining;
 			}
 			@Override
 			public Optional<Integer> getDetectiveLocation(Piece.Detective detective){
@@ -72,17 +75,10 @@ public final class MyGameStateFactory implements Factory<GameState> {
 			}
 			@Override
 			public  Optional<TicketBoard> getPlayerTickets(Piece piece){
-				for(final var r : remaining){
-				if(r.isMrX() == true)
-					return Optional.of(r.)
-				};
-				return Optional.empty();
+				return null;
 
 			}
-			@Override
-			public ImmutableList<LogEntry> getMrXTravelLog(){
-				return null;
-			}
+
 			@Override
 			public ImmutableSet<Piece> getWinner(){
 				return null;
@@ -96,6 +92,7 @@ public final class MyGameStateFactory implements Factory<GameState> {
 				return null;
 			}
 		}
-		return new MyGameState(setup, ImmutableSet.of(Piece.MrX.MRX), ImmutableList.of(LogEntry.), mrX, detectives);
+		return null;
 	}
+
 }

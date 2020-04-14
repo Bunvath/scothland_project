@@ -26,7 +26,7 @@ public final class GameSetup implements Serializable {
 	 */
 	public final ImmutableList<Boolean> rounds;
 	public GameSetup(@Nonnull ImmutableValueGraph<Integer, ImmutableSet<Transport>> graph,
-	                 @Nonnull ImmutableList<Boolean> rounds) {
+					 @Nonnull ImmutableList<Boolean> rounds) {
 		this.graph = Objects.requireNonNull(graph);
 		this.rounds = Objects.requireNonNull(rounds);
 	}
